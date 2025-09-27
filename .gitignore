@@ -1,0 +1,11 @@
+node_modules
+dist/
+registrations/
+*.log
+.env
+public/downloads/*.zip
+docs/downloads/*.zip
+node_modules
+node_modules
+node_modules
+node_modules
