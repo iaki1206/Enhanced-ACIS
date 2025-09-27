@@ -1613,6 +1613,8 @@ function App() {
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/docs" element={<DocumentationPage />} />
           <Route path="/downloads" element={<DownloadsPage />} />
+          {/* Redirect any unknown path to Home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         
         {/* Footer */}
