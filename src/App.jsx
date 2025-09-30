@@ -136,11 +136,14 @@ function DownloadGate({ isOpen, fileUrl, onClose }) {
         fileUrl,
         timestamp: new Date().toISOString()
       }
-      fetch('/api/save-registration', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(() => {/* non-blocking */})
+      // Only POST in local development where middleware exists
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        fetch('/api/save-registration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => { /* non-blocking */ })
+      }
 
       // Trigger actual file download (robust with fallback)
       const url = fileUrl || '/downloads/ACIS_Enhanced_Windows_v1.0.0_Secure.zip'
