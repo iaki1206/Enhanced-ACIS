@@ -87,6 +87,18 @@ function DownloadGate({ isOpen, fileUrl, onClose }) {
   const [verificationCode, setVerificationCode] = useState("")
   const [enteredCode, setEnteredCode] = useState("")
 
+  // Resolve URLs to work correctly on GitHub Pages project sites
+  const resolveUrl = (u) => {
+    if (!u) return import.meta.env.BASE_URL
+    const isExternal = /^https?:\/\//i.test(u)
+    if (isExternal) return u
+    // Site-relative path
+    if (u.startsWith('/')) {
+      return import.meta.env.BASE_URL + u.slice(1)
+    }
+    return import.meta.env.BASE_URL + u
+  }
+
   useEffect(() => {
     if (isOpen) {
       // reset form when opened
@@ -146,7 +158,7 @@ function DownloadGate({ isOpen, fileUrl, onClose }) {
       }
 
       // Trigger actual file download (robust with fallback)
-      const url = fileUrl || '/downloads/ACIS_Enhanced_Windows_v1.0.0_Secure.zip'
+      const url = resolveUrl(fileUrl || 'downloads/ACIS_Enhanced_Windows_v1.0.0_Secure.zip')
       try {
         const dl = document.createElement('a')
         dl.href = url
