@@ -155,6 +155,13 @@ function DownloadGate({ isOpen, fileUrl, onClose }) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         }).catch(() => { /* non-blocking */ })
+      } else {
+        // Use Formspree for GitHub Pages deployment
+        fetch('https://formspree.io/f/xgegvzrw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => { /* non-blocking */ })
       }
 
       // Trigger actual file download (robust with fallback)
